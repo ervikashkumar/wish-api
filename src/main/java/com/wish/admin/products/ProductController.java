@@ -3,10 +3,13 @@ package com.wish.admin.products;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.wish.admin.products.services.ProductService;
 
 /**
  * 
@@ -15,12 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ProductController {
+	
+	@Autowired
+	private ProductService productService;
+	
+	/*@Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }*/
 	/**
 	 * 
 	 * @return ResponseEntity
 	 * Dummy method to fetch the List of products
 	 */
-	@RequestMapping(value="/products")
+	@GetMapping(value="/products")
 	public ResponseEntity getProducts(){
 		List productList = new ArrayList<>();
 		productList.add("TV");
@@ -30,5 +41,13 @@ public class ProductController {
 		productList.add("Microwave");
 		return  new ResponseEntity(productList, HttpStatus.OK);
 		
+	}
+	/**
+	 * Listing all the products available
+	 * @return
+	 */
+	@GetMapping(value="/allproducts")
+	public ResponseEntity getAllProducts() {
+		return new ResponseEntity<>(productService.listAll(),HttpStatus.OK);
 	}
 }

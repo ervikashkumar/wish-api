@@ -20,6 +20,8 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+   //To let gradle pull the local maven repo dependencies like ojdbc
+	mavenLocal()
 	mavenCentral()
 }
 
@@ -30,7 +32,8 @@ ext {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
-	//compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile ("com.oracle:ojdbc7:12.1.0.2")
 	//compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
