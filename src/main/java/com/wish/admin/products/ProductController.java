@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wish.admin.products.domain.Product;
+import com.wish.admin.products.dto.AddProductRequest;
 import com.wish.admin.products.services.ProductService;
 
 /**
@@ -50,4 +54,10 @@ public class ProductController {
 	public ResponseEntity getAllProducts() {
 		return new ResponseEntity<>(productService.listAll(),HttpStatus.OK);
 	}
+	@PostMapping(value ="/addproduct")
+	public ResponseEntity addProduct(@RequestBody Product product) {
+		productService.saveOrUpdate(product);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
 }
